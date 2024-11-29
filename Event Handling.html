@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click , DOM Manipulation and CSS Box Model</title>
+    <style>
+body{
+    font-family: Arial, sans-serif;
+    padding:20px;
+        }
+#colorButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color;
+    cursor:pointer;
+        }
+ul{
+     list-style-type: none;
+     padding: 0;
+        }
+ li{
+    padding: 10px;
+    cursor:pointer;
+    transition: background-color;
+ }
+ li:hover{
+    background-color: #f0f0f0;
+ }
+box{
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    border: 5px solid #3498db;
+    margin: 20px;
+    background-color: #ecf0f1;
+ }
+ </style>
+</head>
+<body>
+
+<h2>Event Handling</h2>
+   <button id="colorButton">Click Me</button>
+    
+<h2>Manipulating the DOM</h2>
+<ul id="itemList">
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+    </ul>
+
+    <h2>CSS Box Model Demonstration</h2>
+    <div id="box">Click or Hover Me!</div>
+
+    <script>
+
+//Part 2:Event Handling
+     const colorButton = document.getElementById('colorButton');
+
+    colorButton.addEventListener('click',function(){
+        alert("Button clicked");
+        changeButtonColor();
+        }
+    )
+
+    function changeButtonColor(){
+        const  randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        colorButton.style.backgroundColor = randomColor;
+
+    }
+//Part3:Manipulating the DOM
+    window.onload = function() {
+    const itemList = document.getElementById('itemList');
+    const newItem = document.createElement('li');
+     newItem.textContent = "Fourth item";
+    itemList.appendChild(newItem);
+
+    // Add event listener to all <li> items
+     const listItems = itemList.getElementsByTagName('li');
+    for (let i = 0; i < listItems.length; i++) {
+     listItems[i].addEventListener('click', function() {
+    this.textContent = generateRandomString(8); // Change text to random string
+    });
+ }
+};
+
+function generateRandomString(length) {
+const characters = 'RandomStringManipulatingtheDom';
+     let result = '';
+    for (let i = 0; i < length; i++) {
+     const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+     }
+     return result;
+ }
+
+// CSS Box Model Interaction
+ const box = document.getElementById('box');
+
+box.addEventListener('click', function() {
+    this.style.backgroundColor = getRandomColor();
+ });
+
+box.addEventListener('mouseover', function() {
+    this.style.borderColor = getRandomColor();
+});
+
+ box.addEventListener('mouseout', function() {
+    this.style.borderColor = '#3498db'; // Reset to original color
+});
+
+function getRandomColor() {
+     return '#' + Math.floor(Math.random()*16777215).toString(16);
+ }
+    </script>
+</body>
+</html>
